@@ -1,8 +1,12 @@
-package User;
+package auth.user;
 
-import Authentificate.IUser;
+import auth.authentificate.IUser;
 
-public class UserPro implements IUser {
+import java.io.Serializable;
+
+public class UserPro implements IUser, Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
+
     private String nom;
     private String mdp;
     private String path;
@@ -35,5 +39,14 @@ public class UserPro implements IUser {
         this.nom = nom;
         this.mdp = mdp;
         this.path = path;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPro{" +
+                "nom='" + nom + '\'' +
+                ", mdp='" + mdp + '\'' +
+                ", path='" + path + '\'' +
+                '}';
     }
 }

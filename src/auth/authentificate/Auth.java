@@ -16,6 +16,11 @@ public class Auth {
     }
 
     public synchronized boolean hasAccount(IUser usr){
-         return users.contains(usr);
+         for( IUser u : this.users){
+             if(u.getNom().equals(usr.getNom()) && u.getMdp().equals(usr.getMdp()))
+                 return true;
+         }
+         return false;
     }
+
 }

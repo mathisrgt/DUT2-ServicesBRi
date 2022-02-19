@@ -2,7 +2,9 @@ package auth.user;
 
 import auth.authentificate.IUser;
 
-public class UserAmateur implements IUser {
+import java.io.Serializable;
+
+public class UserAmateur implements IUser, Serializable {
     private String nom;
     private String mdp;
 
@@ -39,5 +41,13 @@ public class UserAmateur implements IUser {
     public UserAmateur(String nom, String mdp) {
         this.nom = nom;
         this.mdp = mdp;
+    }
+
+    @Override
+    public String  toString() {
+        return "UserAmateur{" +
+                "nom='" + nom + '\'' +
+                ", mdp='" + mdp + '\'' +
+                '}';
     }
 }
