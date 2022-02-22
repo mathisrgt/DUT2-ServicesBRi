@@ -5,6 +5,8 @@ import auth.authentificate.IUser;
 import java.io.Serializable;
 
 public class UserAmateur implements IUser, Serializable {
+    private static final long serialVersionUID = 6529685L;
+
     private String nom;
     private String mdp;
 

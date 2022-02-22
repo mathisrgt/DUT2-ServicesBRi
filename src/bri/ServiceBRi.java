@@ -7,27 +7,33 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.Socket;
 
 
-class ServiceBRi implements Runnable {
+public class ServiceBRi implements Runnable {
 	
 	private Socket client;
 	
-	ServiceBRi(Socket socket) {
+	public ServiceBRi(Socket socket) {
 		client = socket;
 	}
 
 	public void run() {
 		try {BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
 			PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);
-			out.println(ServiceRegistry.toStringue()+"Tapez le numéro de service désiré :");
+			String message = ServiceRegistry.toStringue()+"Tapez le numéro de service désiré :";
+			System.out.println(message);
+			out.println(message);
 			int choix = Integer.parseInt(in.readLine());
 			Class<? extends Service> classe = ServiceRegistry.getServiceClass(choix);
+			System.out.println("Classe : " + classe);
 			
 			try {
 				Constructor<? extends Service> niou = classe.getConstructor(Socket.class);
+				System.out.println("Constructor : " + niou);
 				Service service = niou.newInstance(this.client);
+				System.out.println("Instance : " + service);
 				service.run();
 				/*Method runne = classe.getMethod("run");
 				runne.invoke(service);*/

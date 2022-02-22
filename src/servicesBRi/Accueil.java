@@ -87,6 +87,7 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
     } catch (Exception e) {
         e.printStackTrace();
     }
+    }else if(service==2){
     }else if(service==3){
 
         try {

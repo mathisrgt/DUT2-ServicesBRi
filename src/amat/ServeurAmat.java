@@ -1,7 +1,10 @@
 package amat;
 
 import auth.authentificate.Auth;
+import auth.user.UserAmateur;
+import auth.user.UserPro;
 import servicesBRi.Accueil;
+import servicesBRi.AccueilAmateur;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,6 +14,7 @@ public class ServeurAmat implements Runnable {
     private Auth authentificate;
 
     public ServeurAmat(int port, Auth authentificate) throws IOException {
+        this.authentificate = authentificate;
         listen_socket = new ServerSocket(port);
     }
 
@@ -18,7 +22,12 @@ public class ServeurAmat implements Runnable {
         try {
             System.err.println("Lancement du serveur au port " + this.listen_socket.getLocalPort());
             while(true) {
-                new Thread(new Accueil(listen_socket.accept(), authentificate)).start();
+                try {
+                    this.authentificate.addUser(new UserAmateur("test1", "test1"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                new Thread(new AccueilAmateur(listen_socket.accept(), authentificate)).start();
                 System.out.println("Nouveau client ama");
             }
 

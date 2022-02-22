@@ -52,7 +52,7 @@ public class ServiceRegistry {
 	
 // toStringue liste les activités présentes
 	public static String toStringue() {
-		String result = "Activités présentes :##";
+		String result = "Activités présentes :#";
 		int i = 1;
 		// foreach n'est qu'un raccourci d'écriture 
 		// donc il faut prendre le verrou explicitement sur la collection
@@ -61,7 +61,7 @@ public class ServiceRegistry {
 				try {
 					Method toStringue = s.getMethod("toStringue");
 					String string = (String) toStringue.invoke(s);
-					result = result + i + " " + string+"##";
+					result = result + i + " " + string+"#";
 					i++;
 				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException e) {
