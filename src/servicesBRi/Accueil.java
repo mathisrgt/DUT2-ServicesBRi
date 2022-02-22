@@ -47,10 +47,13 @@ public class Accueil implements Runnable {
             IUser user = getUserFromSocket(socketIn);
             if(this.ath.hasAccount(user)){
                 System.out.println(user);
-                String sb="Bienvenu vous êtes connecté ! # Choissiez un service # 1 - Fournir un nouveau Service # 2 - Mettre à jour un service # 3 - Déclarer un changement d'adresse FTP#";
+                while(true){
+                    String sb="Bienvenu vous êtes connecté ! # Choissiez un service # 1 - Fournir un nouveau Service # 2 - Mettre à jour un service # 3 - Déclarer un changement d'adresse FTP#";
 
-                PWin.println(sb);
-                lanceService(valueOf(BFin.readLine()), user, BFin, PWin);
+                    PWin.println(sb);
+                    lanceService(valueOf(BFin.readLine()), user, BFin, PWin);
+                }
+
 
 
             }else{
@@ -84,6 +87,17 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
     } catch (Exception e) {
         e.printStackTrace();
     }
+    }else if(service==3){
+
+        try {
+            PWin.println("Entrez votre nouvelle URL #");
+            String path=BFin.readLine();
+            user.setPath(path);
+            PWin.println("Votre nouvelle PATH " + path + "#");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
