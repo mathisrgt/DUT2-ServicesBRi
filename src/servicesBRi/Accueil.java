@@ -48,7 +48,7 @@ public class Accueil implements Runnable {
             if(this.ath.hasAccount(user)){
                 System.out.println(user);
                 while(true){
-                    String sb="Bienvenu vous êtes connecté ! # Choissiez un service # 1 - Fournir un nouveau Service # 2 - Mettre à jour un service # 3 - Déclarer un changement d'adresse FTP#";
+                    String sb="Bienvenu vous etes connecte ! # Choissiez un service # 1 - Fournir un nouveau Service # 2 - Mettre à jour un service # 3 - Déclarer un changement d'adresse FTP#";
 
                     PWin.println(sb);
                     lanceService(valueOf(BFin.readLine()), user, BFin, PWin);
@@ -72,18 +72,38 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
     System.out.println("Service choisi " + service);
     if(service==1){
     try {
+        boolean thereIsError=false;
+        String Message="";
         URLClassLoader urlcl = URLClassLoader.newInstance(new URL[]{new URL(user.getPath())});
-        try{
-            PWin.println("Nom du service ? #");
-            ServiceRegistry.addService(urlcl.loadClass(BFin.readLine()).asSubclass(Service.class));
-            System.out.println(ServiceRegistry.toStringue());
-        } catch (ClassCastException e) {
-            System.out.println("La classe doit implémenter bri.Service");;
-        }catch (ValidationException e) {
-            System.out.println(e.getMessage());;
-        } catch (ClassNotFoundException e) {
-            System.out.println("La classe n'est pas sur le serveur ftp dans home");
-        }
+        PWin.println("Nom du service ? #");
+        do{
+            try{
+
+                    String classe = BFin.readLine();
+                    System.out.println("message " + classe);
+
+                    ServiceRegistry.addService(urlcl.loadClass(classe).asSubclass(Service.class));
+                    System.out.println(ServiceRegistry.toStringue());
+                    thereIsError=false;
+            } catch (ClassCastException e) {
+                thereIsError=true;
+                Message="La classe doit implémenter bri.Service#";
+            }catch (ValidationException e) {
+                thereIsError=true;
+                Message = e.getMessage() + '#';
+            } catch (ClassNotFoundException e) {
+                thereIsError=true;
+                Message="La classe n'est pas sur le serveur ftp dans home#";
+                System.out.println("Erreur 3 HIRE");
+            }
+            if(thereIsError){
+                PWin.println(Message);
+                System.out.println("Message sent" + Message);
+            }
+
+        }while(thereIsError);
+        PWin.println("IGNORE Service a ete ajoute#");
+        BFin.readLine();
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -94,8 +114,8 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
             PWin.println("Entrez votre nouvelle URL #");
             String path=BFin.readLine();
             user.setPath(path);
-            PWin.println("Votre nouvelle PATH " + path + "#");
-
+            PWin.println("IGNORE Votre nouvelle PATH " + path + "#");
+            BFin.readLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
