@@ -76,10 +76,11 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
         String Message="";
         URLClassLoader urlcl = URLClassLoader.newInstance(new URL[]{new URL(user.getPath())});
         PWin.println("Nom du service ? #");
+        String classe="";
         do{
             try{
 
-                    String classe = BFin.readLine();
+                    classe = BFin.readLine();
                     System.out.println("message " + classe);
 
                     ServiceRegistry.addService(urlcl.loadClass(classe).asSubclass(Service.class));
@@ -87,16 +88,20 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
                     thereIsError=false;
             } catch (ClassCastException e) {
                 thereIsError=true;
-                Message="La classe doit implémenter bri.Service#";
+                Message="La classe doit implémenter bri.Service ou press q to quit#";
             }catch (ValidationException e) {
                 thereIsError=true;
                 Message = e.getMessage() + '#';
             } catch (ClassNotFoundException e) {
                 thereIsError=true;
-                Message="La classe n'est pas sur le serveur ftp dans home#";
+                Message="La classe n'est pas sur le serveur ftp dans home ou press q to quit#";
                 System.out.println("Erreur 3 HIRE");
+            }catch(NoClassDefFoundError e){
+                thereIsError=true;
+                Message="NoClassDefFoundError ou press q to quit#";
             }
-            if(thereIsError){
+            if(classe.equals("q") || thereIsError){
+                thereIsError=false;
                 PWin.println(Message);
                 System.out.println("Message sent" + Message);
             }
@@ -113,10 +118,11 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
             String Message="";
             URLClassLoader urlcl = URLClassLoader.newInstance(new URL[]{new URL(user.getPath())});
             PWin.println("Nom du service ? #");
+            String classe="";
             do{
                 try{
 
-                    String classe = BFin.readLine();
+                    classe = BFin.readLine();
                     System.out.println("message " + classe);
 
                     ServiceRegistry.miseAjour(urlcl.loadClass(classe).asSubclass(Service.class));
@@ -124,19 +130,24 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
                     thereIsError=false;
                 } catch (ClassCastException e) {
                     thereIsError=true;
-                    Message="La classe doit implémenter bri.Service#";
+                    Message="La classe doit implémenter bri.Service ou press q to quit#";
                 }catch (ValidationException e) {
                     thereIsError=true;
                     Message = e.getMessage() + '#';
                 } catch (ClassNotFoundException e) {
                     thereIsError=true;
-                    Message="La classe n'est pas sur le serveur ftp dans home#";
+                    Message="La classe n'est pas sur le serveur ftp dans home ou press q to quit#";
                     System.out.println("Erreur 3 HIRE");
+                }catch(NoClassDefFoundError e){
+                    thereIsError=true;
+                    Message="NoClassDefFoundError ou press q to quit#";
                 }
+                thereIsError= !classe.equals("q");
                 if(thereIsError){
                     PWin.println(Message);
                     System.out.println("Message sent" + Message);
                 }
+
 
             }while(thereIsError);
             PWin.println("IGNORE Service a ete mis a jour#");

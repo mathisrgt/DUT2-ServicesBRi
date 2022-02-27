@@ -19,14 +19,20 @@ public class ServiceRegistry {
 
 	public static void miseAjour(Class<? extends Service> runnableClass) throws ValidationException {
 		validation(runnableClass);
-		int index=0;
+		System.out.println("Function mise a jour");
 		synchronized (servicesClasses) {
-			for (Class<? extends Service> s : servicesClasses) {
-				if(s.getName().equals(runnableClass.getName())){
-					servicesClasses.remove(index);
+			System.out.println("block syncro, taille " + servicesClasses.size());
+			for (int i =0; i<= servicesClasses.size();i++) {
+
+				if(servicesClasses.size()!=0 && servicesClasses.get(i).getName().equals(runnableClass.getName())){
+					System.out.println("for each index :" + i);
+					System.out.println("getname :" + servicesClasses.get(i).getName());
+					System.out.println("class runnalbe :" + runnableClass.getName());
+					servicesClasses.remove(i);
 					servicesClasses.add(runnableClass);
+				}else{
+					throw new ValidationException("Cette classe n'existe pas ! press q to quit");
 				}
-				index++;
 			}
 		}
 	}
