@@ -108,6 +108,42 @@ private void lanceService(int service, IUser user, BufferedReader BFin, PrintWri
         e.printStackTrace();
     }
     }else if(service==2){
+        try {
+            boolean thereIsError=false;
+            String Message="";
+            URLClassLoader urlcl = URLClassLoader.newInstance(new URL[]{new URL(user.getPath())});
+            PWin.println("Nom du service ? #");
+            do{
+                try{
+
+                    String classe = BFin.readLine();
+                    System.out.println("message " + classe);
+
+                    ServiceRegistry.miseAjour(urlcl.loadClass(classe).asSubclass(Service.class));
+                    System.out.println(ServiceRegistry.toStringue());
+                    thereIsError=false;
+                } catch (ClassCastException e) {
+                    thereIsError=true;
+                    Message="La classe doit implémenter bri.Service#";
+                }catch (ValidationException e) {
+                    thereIsError=true;
+                    Message = e.getMessage() + '#';
+                } catch (ClassNotFoundException e) {
+                    thereIsError=true;
+                    Message="La classe n'est pas sur le serveur ftp dans home#";
+                    System.out.println("Erreur 3 HIRE");
+                }
+                if(thereIsError){
+                    PWin.println(Message);
+                    System.out.println("Message sent" + Message);
+                }
+
+            }while(thereIsError);
+            PWin.println("IGNORE Service a ete mis a jour#");
+            BFin.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }else if(service==3){
 
         try {

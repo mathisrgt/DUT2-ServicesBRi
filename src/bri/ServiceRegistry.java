@@ -17,6 +17,20 @@ public class ServiceRegistry {
 	}
 	private static List<Class<? extends Service>> servicesClasses;
 
+	public static void miseAjour(Class<? extends Service> runnableClass) throws ValidationException {
+		validation(runnableClass);
+		int index=0;
+		synchronized (servicesClasses) {
+			for (Class<? extends Service> s : servicesClasses) {
+				if(s.getName().equals(runnableClass.getName())){
+					servicesClasses.remove(index);
+					servicesClasses.add(runnableClass);
+				}
+				index++;
+			}
+		}
+	}
+
 	public static void addService(Class<? extends Service> runnableClass) throws ValidationException {
 		// vérifier la conformité par introspection
 		// si non conforme --> exception
