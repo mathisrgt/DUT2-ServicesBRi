@@ -58,6 +58,7 @@ public class Accueil implements Runnable {
                     try{
                         int val = valueOf(BFin.readLine());
                         lanceService(val, user, BFin, PWin);
+                        err=false;
                         if(val>3 || val < 0){
                             throw new NumberFormatException();
                         }
