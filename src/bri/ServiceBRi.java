@@ -14,11 +14,19 @@ import java.net.Socket;
 public class ServiceBRi implements Runnable {
 	
 	private Socket client;
-	
+
+
+	/**@brief Constructeur du Service qui gere le lancement des Serices disponibles;
+	 * @param socket : La socket de communication;
+	 * @return VOID;
+	 */
 	public ServiceBRi(Socket socket) {
 		client = socket;
 	}
 
+	/**@brief Thread qui s'occupe de savoir quel Service le client veut acceder, et aussi d'arreter après;
+	 * @return VOID;
+	 */
 	public void run() {
 		try {BufferedReader in = new BufferedReader (new InputStreamReader(client.getInputStream ( )));
 			PrintWriter out = new PrintWriter (client.getOutputStream ( ), true);

@@ -15,6 +15,11 @@ import static java.lang.Integer.valueOf;
 public class AccueilAmateur implements Runnable {
     private Socket s;
     private Auth ath;
+    /**@brief Constructeur de l'Accueil Amateur;
+     * @param accept : Socket de communication;
+     * @param at : Objet qui permet de identifier les nouveux arrivants;
+     * @return void;
+     */
     public AccueilAmateur(Socket accept, Auth at) {
         ath = at;
         s=accept;
@@ -22,7 +27,9 @@ public class AccueilAmateur implements Runnable {
         System.out.println("lancement service 1");
 
     }
-
+    /**@brief Thread qui s'occupe de dispacher vers le service BRi par le client amateur;
+     * @return void;
+     */
     @Override
     public void run() {
         ObjectOutputStream socketOut = null;
@@ -59,19 +66,22 @@ public class AccueilAmateur implements Runnable {
     }
 
 
+    /**@brief get un Objet de la socket;
+     * @param socketIn :ObjectInputStream permentant de lire un objet dans une socket ;
+     * @return iUser;
+     */
+    private IUser getUserFromSocket(ObjectInputStream socketIn){
+        System.out.println("function getUserFromSocket");
 
-private IUser getUserFromSocket(ObjectInputStream socketIn){
-    System.out.println("function getUserFromSocket");
-
-    try {
-        return (IUser) socketIn.readObject();
-    } catch (IOException e) {
-        e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
+        try {
+            return (IUser) socketIn.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    return null;
-}
 
 }
 

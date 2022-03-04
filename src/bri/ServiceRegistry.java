@@ -16,8 +16,12 @@ public class ServiceRegistry {
 		servicesClasses = new Vector<Class<? extends Service>>();
 	}
 	private static List<Class<? extends Service>> servicesClasses;
-
-	public static void miseAjour(Class<? extends Service> runnableClass) throws ValidationException {
+	/**@brief Service de mise ajour d'un Service present deja dans le vector, methodde synchronized car le vector est une ressource commune;
+	 * @param runnableClass : La classe qui doit extends Service;
+	 * @throws ValidationException : Si la classe ne respecte pas les criteres de validation;
+	 * @return VOID;
+	 */
+	public synchronized static void miseAjour(Class<? extends Service> runnableClass) throws ValidationException {
 		validation(runnableClass);
 		System.out.println("Function mise a jour");
 		synchronized (servicesClasses) {
@@ -36,16 +40,23 @@ public class ServiceRegistry {
 			}
 		}
 	}
-
-	public static void addService(Class<? extends Service> runnableClass) throws ValidationException {
+	/**@brief Service d'ajout de services dans le vector, methodde synchronized car le vector est une ressource commune;
+	 * @param runnableClass : La classe qui doit extends Service;
+	 * @throws ValidationException : Si la classe ne respecte pas les criteres de validation;
+	 * @return VOID;
+	 */
+	public synchronized static void addService(Class<? extends Service> runnableClass) throws ValidationException {
 		// vérifier la conformité par introspection
 		// si non conforme --> exception
 		validation(runnableClass);
 		servicesClasses.add(runnableClass);
 	}
 
-	// une méthode de validation renvoie void et lève une exception si non validation
-	// surtout pas de retour boolean !
+	/**@brief Souleve une exception si la classe n'est pas conforme, sinon elle ne fais rien ( surtout pas de boolean pour le retour );
+	 * @param classe : La classe qui doit extends Service;
+	 * @throws ValidationException : Si la classe ne respecte pas les criteres de validation;
+	 * @return VOID;
+	 */
 	private static void validation(Class<? extends Service> classe) throws ValidationException {
 		// cette partie pourrait être déléguée à un objet spécialisé
 		// le constructeur avec Socket
@@ -65,12 +76,17 @@ public class ServiceRegistry {
 		
 	
 	}
-
-	public static Class<? extends Service> getServiceClass(int numService) {
+	/**@brief Get de la classe de indice numService dans le vecteur;
+	 * @param numService : La classe qui doit extends Service;
+	 * @return Class;
+	 */
+	public synchronized static Class<? extends Service> getServiceClass(int numService) {
 			return servicesClasses.get(numService-1);
 	}
-	
-// toStringue liste les activités présentes
+
+	/**@brief Methode qui permet de recupere les classes du vecteur en String, de maière un peu "jolie";
+	 * @return String;
+	 */
 	public static String toStringue() {
 		String result = "Activités présentes :#";
 		int i = 1;

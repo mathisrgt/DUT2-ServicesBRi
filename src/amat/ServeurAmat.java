@@ -13,11 +13,20 @@ public class ServeurAmat implements Runnable {
     private ServerSocket listen_socket;
     private Auth authentificate;
 
+    /**@brief Constructeur du Serveur réservé aux amateurs;
+     * @param   port : Le portdestiné aux amateurs;
+     * @param authentificate, la classe qui permet de identifier les Utilisateur;
+     * @return VOID
+     */
     public ServeurAmat(int port, Auth authentificate) throws IOException {
         this.authentificate = authentificate;
         listen_socket = new ServerSocket(port);
     }
 
+
+    /**@brief Lance le thread, identifie l'utilisateur, puis lance le Service Accueil;
+     * @return VOID;
+     */
     public void run() {
         try {
             System.err.println("Lancement du serveur au port " + this.listen_socket.getLocalPort());
