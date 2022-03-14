@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DUT2-ServicesBRi:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DUT2_ServicesBRi_jar</output-path>
+    <root id="archive" name="DUT2-ServicesBRi.jar">
+      <element id="module-output" name="DUT2-ServicesBRi" />
+    </root>
+  </artifact>
+</component>

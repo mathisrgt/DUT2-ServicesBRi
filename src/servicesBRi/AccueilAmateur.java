@@ -52,7 +52,8 @@ public class AccueilAmateur implements Runnable {
             IUser user = getUserFromSocket(socketIn);
             if(this.ath.hasAccount(user)){
                 System.out.println(user);
-                new ServiceBRi(s).start();
+                new ServiceBRi(s, BFin, PWin).start();
+
             }else{
                 String aa= "noUser";
 
