@@ -2,9 +2,7 @@ package amat;
 
 import auth.authentificate.Auth;
 import auth.user.UserAmateur;
-import auth.user.UserPro;
-import servicesBRi.Accueil;
-import servicesBRi.AccueilAmateur;
+import accueil.AccueilAmateur;
 
 import java.io.IOException;
 import java.net.ServerSocket;

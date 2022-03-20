@@ -1,14 +1,11 @@
-package servicesBRi;
+package accueil;
 
 import auth.authentificate.Auth;
 import auth.authentificate.IUser;
-import auth.user.UserPro;
 import bri.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 import static java.lang.Integer.valueOf;
 

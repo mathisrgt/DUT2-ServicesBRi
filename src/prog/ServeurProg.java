@@ -2,7 +2,7 @@ package prog;
 
 import auth.authentificate.Auth;
 import auth.user.UserPro;
-import servicesBRi.Accueil;
+import accueil.Accueil;
 
 import java.io.IOException;
 import java.net.ServerSocket;

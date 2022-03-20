@@ -1,4 +1,4 @@
-package servicesBRi;
+package accueil;
 
 import auth.authentificate.Auth;
 import auth.authentificate.IUser;
@@ -108,7 +108,6 @@ public class Accueil implements Runnable {
                 String classe="";
                 do{
                     try{
-
                             classe = BFin.readLine();
                             System.out.println("message " + classe);
 
@@ -128,6 +127,7 @@ public class Accueil implements Runnable {
                     }catch(NoClassDefFoundError e){
                         thereIsError=!classe.equals("q");
                         Message="NoClassDefFoundError ou press q to quit#";
+                        e.printStackTrace();
                     }
                     System.out.println("Alors il y a : " + thereIsError);
                     if(thereIsError){
